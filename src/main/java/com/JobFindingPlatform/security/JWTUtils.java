@@ -1,6 +1,7 @@
 package com.JobFindingPlatform.security;
 
 import com.JobFindingPlatform.entity.Role;
+import com.JobFindingPlatform.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -20,14 +21,14 @@ public class JWTUtils {
 
     private final Key secretKey = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
 
-    public String generateToken(String userName,Role role){
 
-        Map<String,Object> claim = new HashMap<>();
-                claim.put("role",role);
+    public String generateToken(User user){
+
+
 
         return Jwts.builder()
-                .setClaims(claim)
-                .setSubject(userName)
+                .setSubject(user.getEmail())
+                .claim("role",user.getRole().toString())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(SignatureAlgorithm.ES512,SECRET)

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.JOBFINDINGPLATFORM</groupId>
-	<artifactId>JOBFIND</artifactId>
+	<artifactId>JOBPORTAL</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>JOBFIND</name>
+	<name>JOBPORTAL</name>
 	<description>Job finding project for spring boot</description>
 	<url/>
 	<licenses>

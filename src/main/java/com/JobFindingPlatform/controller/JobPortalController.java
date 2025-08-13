@@ -1,4 +1,4 @@
 package com.JobFindingPlatform.controller;
 
-public class JobFindingPlatformController {
+public class JobPortalController {
 }
