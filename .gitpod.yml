@@ -5,6 +5,8 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - init: ./mvnw install -DskipTests=false
+  - name: Start MySQL
+    init: sudo service mysql start
+
 
 

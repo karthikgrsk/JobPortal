@@ -14,7 +14,7 @@ import java.util.Date;
 @Component
 public class JWTUtils {
 
-    private final String SECRET = "JobFindingPlatform";
+    private final String SECRET = "JobFindingPlatformSecretKey1234567890";
     private final int EXPIRATION = 1000 * 60;
 
     private final Key secretKey = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
@@ -26,7 +26,7 @@ public class JWTUtils {
                 .claim("role",user.getRole().toString())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-                .signWith(SignatureAlgorithm.ES512,SECRET)
+                .signWith(secretKey,SignatureAlgorithm.HS256)
                 .compact();
 
     }
