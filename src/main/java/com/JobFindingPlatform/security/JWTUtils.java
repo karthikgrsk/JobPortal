@@ -1,6 +1,6 @@
 package com.JobFindingPlatform.security;
 
-import com.JobFindingPlatform.entity.Role;
+
 import com.JobFindingPlatform.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class JWTUtils {
@@ -23,9 +21,6 @@ public class JWTUtils {
 
 
     public String generateToken(User user){
-
-
-
         return Jwts.builder()
                 .setSubject(user.getEmail())
                 .claim("role",user.getRole().toString())
