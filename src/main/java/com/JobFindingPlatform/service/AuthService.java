@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
 
-    private UserRespository userRespository;
-    private PasswordEncoder passwordEncoder;
-    private JWTUtils jwtUtils;
+    private final UserRespository userRespository;
+    private final PasswordEncoder passwordEncoder;
+    private final JWTUtils jwtUtils;
 
 
     public AuthResponseDTO register(UserDTO dto){

@@ -1,25 +1,32 @@
 package com.JobFindingPlatform.controller;
 
+import com.JobFindingPlatform.dto.AuthResponseDTO;
+import com.JobFindingPlatform.dto.LoginRequestDTO;
+import com.JobFindingPlatform.dto.UserDTO;
 import com.JobFindingPlatform.service.AuthService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class JobPortalController {
 
-    private AuthService AuthService;
 
-    @GetMapping("/register")
-    public String register() {
-        return "registered";
+    private final AuthService AuthService;
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponseDTO>  register(@RequestBody UserDTO userDTO) {
+        AuthResponseDTO response = AuthService.register(userDTO);
+        return ResponseEntity.ok(response);
     }
 
-    @PostMapping("login")
-    public String login(){
-        return "logged in";
+    @PostMapping("/login")
+    public ResponseEntity<String>  login(@RequestBody LoginRequestDTO loginRequestDTO){
+        String token = AuthService.login(loginRequestDTO);
+        return ResponseEntity.ok(token);
     }
 
 

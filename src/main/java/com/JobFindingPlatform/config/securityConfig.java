@@ -23,12 +23,16 @@ public class securityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(cors ->  corsConfigurationSource())
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/auth/**")
+                                .requestMatchers("/auth/**","/h2-console/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
 
-                        );
+                        )
+                .headers(headers->headers
+                        .frameOptions(frame->frame.sameOrigin())
+                );
+
        return http.build();
     }
 
