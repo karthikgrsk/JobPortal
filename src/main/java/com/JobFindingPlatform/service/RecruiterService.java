@@ -17,13 +17,18 @@ public class RecruiterService {
     private final RecruiterRepository recruiterRepository;
 
     public RecruiterDTO createRecruiterProfile(RecruiterDTO recruiterDTO) {
-        Recruiter recruiter = new Recruiter();
 
+        Optional<Recruiter> existingRecruiter = recruiterRepository.findByRecruiterEmail(recruiterDTO.getRecruiterEmail());
+        if(existingRecruiter.isPresent()) {
+            throw new IllegalArgumentException("Recruiter already exists");
+        }
+        Recruiter recruiter = new Recruiter();
         recruiter.setRecruiterEmail(recruiterDTO.getRecruiterEmail());
         recruiter.setRecruiterName(recruiterDTO.getRecruiterName());
         recruiter.setCompanyName(recruiterDTO.getCompanyName());
         recruiter.setRecruiterPhone(recruiterDTO.getRecruiterPhone());
         recruiter.setDesignation(recruiterDTO.getDesignation());
+
 
         Recruiter saved = recruiterRepository.save(recruiter);
 

@@ -15,7 +15,7 @@ import java.util.Date;
 public class JWTUtils {
 
     private final String SECRET = "JobFindingPlatformSecretKey1234567890";
-    private final int EXPIRATION = 1000 * 60;
+    private final int EXPIRATION = 1000 * 300;
 
     private final Key secretKey = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
 
@@ -31,7 +31,7 @@ public class JWTUtils {
 
     }
 
-    public String extractUsername(String token){
+    public String extractEmail(String token){
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
@@ -42,7 +42,7 @@ public class JWTUtils {
 
     public Boolean validateToken(String token){
         try{
-            extractUsername(token);
+            extractEmail(token);
             return true;
         }catch (Exception e){
             return false;

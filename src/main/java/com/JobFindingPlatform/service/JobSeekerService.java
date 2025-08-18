@@ -3,12 +3,12 @@ package com.JobFindingPlatform.service;
 import com.JobFindingPlatform.dto.JobSeekerDTO;
 import com.JobFindingPlatform.entity.JobSeeker;
 import com.JobFindingPlatform.repository.JobSeekerRepository;
-import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
+
 import java.util.Optional;
+import java.util.OptionalInt;
 
 @Service
 public class JobSeekerService {
@@ -17,8 +17,11 @@ public class JobSeekerService {
     private JobSeekerRepository jobSeekerRepository;
 
     public JobSeekerDTO createJobSeeker(JobSeekerDTO jobSeekerDTO) {
+        Optional<JobSeeker> existingJobSeeker = jobSeekerRepository.findByEmail(jobSeekerDTO.getEmail());
+        if(existingJobSeeker.isPresent()) {
+            throw new IllegalArgumentException("Job seeker already exists");
+        }
         JobSeeker jobSeeker = new JobSeeker();
-
         jobSeeker.setId(jobSeekerDTO.getId());
         jobSeeker.setEmail(jobSeekerDTO.getEmail());
         jobSeeker.setPhone(jobSeekerDTO.getPhone());

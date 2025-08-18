@@ -22,7 +22,7 @@ public class AuthService {
     private final JWTUtils jwtUtils;
 
 
-    public AuthResponseDTO register(UserDTO dto){
+    public String register(UserDTO dto){
 
         if(userRespository.findByEmail(dto.getEmail()).isPresent()){
             throw  new RuntimeException("Email already exists");
@@ -36,12 +36,11 @@ public class AuthService {
         user.setRole(dto.getRole());
         userRespository.save(user);
 
-        String token = jwtUtils.generateToken(user);
-        return new AuthResponseDTO(token,"User got registered");
+        return "User successfully registered";
 
     }
 
-    public String login(LoginRequestDTO dto){
+    public AuthResponseDTO login(LoginRequestDTO dto){
         User user = userRespository.findByEmail(dto.getEmail()).orElseThrow(
                 () -> new UsernameNotFoundException("User not found with email: " + dto.getEmail())
         );
@@ -50,8 +49,8 @@ public class AuthService {
 
             throw  new RuntimeException("Password doesn't match");
         }
-
-        return jwtUtils.generateToken(user);
+        String token = jwtUtils.generateToken(user);
+        return new AuthResponseDTO("Login Successfully",token);
     }
 
 

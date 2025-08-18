@@ -8,16 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/jobseekers")
+@RequestMapping("/api/jobseekers/")
 public class JobSeekerController {
     @Autowired
     private JobSeekerService jobSeekerService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<JobSeekerDTO> createJobSeekers(@RequestBody JobSeekerDTO jobSeekerDTO){
         return ResponseEntity.ok(jobSeekerService.createJobSeeker(jobSeekerDTO));
     }
-
+    @GetMapping("/test")
+    public ResponseEntity<String> test(String hello){
+        return ResponseEntity.ok("HEllo "+hello);
+    }
     @GetMapping("/email/{email}")
     public ResponseEntity<Optional<JobSeekerDTO>> getJobSeekerByEmail(@PathVariable  String email){
         return ResponseEntity.ok(jobSeekerService.getJobSeekerByEmail(email));

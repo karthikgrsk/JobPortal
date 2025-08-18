@@ -20,7 +20,7 @@ public class JobSeekerDTO {
     private String fullName;
     private String email;
     private String phone;
-    private String colleageName;
+    private String collegeName;
     private String universityName;
     private String degree;
     private LocalDate passingYear;
