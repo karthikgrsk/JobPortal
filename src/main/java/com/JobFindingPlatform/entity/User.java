@@ -1,6 +1,7 @@
 package com.JobFindingPlatform.entity;
 
 
+import com.JobFindingPlatform.ENUM.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

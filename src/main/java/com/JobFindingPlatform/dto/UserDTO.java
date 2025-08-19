@@ -1,6 +1,6 @@
 package com.JobFindingPlatform.dto;
 
-import com.JobFindingPlatform.entity.Role;
+import com.JobFindingPlatform.ENUM.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
