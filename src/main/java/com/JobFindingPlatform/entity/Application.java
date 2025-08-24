@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="applications")
@@ -14,5 +14,12 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Application{
-  private 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private Long jobPostId;
+    private Long jobSeekerId;
+    private String status;
+    private LocalDateTime appliedAt;
 }
