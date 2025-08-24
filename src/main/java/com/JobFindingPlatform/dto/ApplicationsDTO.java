@@ -9,27 +9,20 @@ import lombok.Builder;
 import com.JobFindingPlatform.ENUM.JobType;
 import com.JobFindingPlatform.ENUM.ApplicationStatus;
 
-@Entity
-@Table(name="applications")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Application{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ApplicationsDTO{
+    
     private Long id;
     private String jobSeekerName;
-    @Column(unique=true)
     private String jobSeekerEmail;
     private Long jobId;
     private String jobTitle;
     private JobType jobType;
-    @Column(unique = true)
     private String recruiterEmail;
     private ApplicationStatus status;
     private LocalDateTime appliedAt;
 
-  
-    
 }
