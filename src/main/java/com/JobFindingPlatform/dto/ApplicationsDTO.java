@@ -1,4 +1,4 @@
-package com.JobFindingPlatform.entity;
+package com.JobFindingPlatform.dto;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
