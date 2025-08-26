@@ -4,6 +4,8 @@ import com.JobFindingPlatform.entity.Application;
 import com.JobFindingPlatform.dto.ApplicationsDTO;
 import com.JobFindingPlatform.repository.ApplicationRepository;
 import org.springframework.stereotype.Service;
+import java.util.*;
+import lombok.RequiredArgsConstructor;
 
 
 @Service
@@ -27,35 +29,35 @@ public class ApplicationService{
         return "Applied Successfully";
     }
 
-    public List<ApplicationDTO> getApplicationsByJobSeekerEmail(String email) {
+    public List<ApplicationsDTO> getApplicationsByJobSeekerEmail(String email) {
         List<Application> applications = applicationRepository.findByJobSeekerEmail(email);
-        List<ApplicationDTO> applicationsDTO = new ArrayList<>();
+        List<ApplicationsDTO> applicationsDTO = new ArrayList<>();
         for (Application app : applications) {
             applicationsDTO.add(mapToDTO(app)); 
         }
         return applicationsDTO;
     }
 
-    public List<ApplicationDTO> getRecruiterEmail(String email) {
+    public List<ApplicationsDTO> getRecruiterEmail(String email) {
         List<Application> applications = applicationRepository.findByRecruiterEmail(email);
-        List<ApplicationDTO> applicationsDTO = new ArrayList<>();
+        List<ApplicationsDTO> applicationsDTO = new ArrayList<>();
         for (Application app : applications) {
             applicationsDTO.add(mapToDTO(app)); 
         }
         return applicationsDTO;
     }
-    public List<ApplicationDTO> getJobTitle(String title) {
+    public List<ApplicationsDTO> getJobTitle(String title) {
         List<Application> applications = applicationRepository.findByJobTitle(title);
-        List<ApplicationDTO> applicationsDTO = new ArrayList<>();
+        List<ApplicationsDTO> applicationsDTO = new ArrayList<>();
         for (Application app : applications) {
             applicationsDTO.add(mapToDTO(app)); 
         }
         return applicationsDTO;
     }
 
-    public List<ApplicationDTO> getJobType(String type) {
+    public List<ApplicationsDTO> getJobType(String type) {
         List<Application> applications = applicationRepository.findByJobType(type);
-        List<ApplicationDTO> applicationsDTO = new ArrayList<>();
+        List<ApplicationsDTO> applicationsDTO = new ArrayList<>();
         for (Application app : applications) {
             applicationsDTO.add(mapToDTO(app)); 
         }
@@ -70,9 +72,9 @@ public class ApplicationService{
     }
 
 
-    private ApplicationDTO mapToDTO(Application app) {
+    private ApplicationsDTO mapToDTO(Application app) {
 		
-		ApplicationDTO dto = new ApplicationDTO();
+		ApplicationsDTO dto = new ApplicationsDTO();
 		dto.setJobId(app.getJobId());
 		dto.setJobSeekerEmail(app.getJobSeekerEmail());
 		dto.setJobseekerName(app.getJobSeekerName());

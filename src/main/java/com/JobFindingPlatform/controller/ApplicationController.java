@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import lombok.RequiredArgsConstructor;
+import java.util.*;
+import com.JobFindingPlatform.dto.ApplicationsDTO;
 
 @RestController
 @RequestMapping("/applications")
@@ -22,8 +25,8 @@ public class ApplicationController {
     }
 
     @GetMapping("/jobseeker")
-    public ResponseEntity<List<ApplicationDTO>> getApplicationsByJobSeekerEmail(@RequestParam String email) {
-        List<ApplicationDTO> applications = applicationService.getApplicationsByJobSeekerEmail(email);
+    public ResponseEntity<List<ApplicationsDTO>> getApplicationsByJobSeekerEmail(@RequestParam String email) {
+        List<ApplicationsDTO> applications = applicationService.getApplicationsByJobSeekerEmail(email);
         return ResponseEntity.ok(applications);
     }
 
@@ -34,14 +37,14 @@ public class ApplicationController {
     }
 
     @GetMapping("/jobtitle")
-    public ResponseEntity<List<ApplicationDTO>> getApplicationsByJobTitle(@RequestParam String title) {
-        List<ApplicationDTO> applications = applicationService.getApplicationsByJobTitle(title);
+    public ResponseEntity<List<ApplicationsDTO>> getApplicationsByJobTitle(@RequestParam String title) {
+        List<ApplicationsDTO> applications = applicationService.getApplicationsByJobTitle(title);
         return ResponseEntity.ok(applications); 
     }
 
     @GetMapping("/jobtype")
-    public ResponseEntity<List<ApplicationDTO>> getApplicationsByJobType(@RequestParam String type) {
-        List<ApplicationDTO> applications = applicationService.getApplicationsByJobType(type);
+    public ResponseEntity<List<ApplicationsDTO>> getApplicationsByJobType(@RequestParam String type) {
+        List<ApplicationsDTO> applications = applicationService.getApplicationsByJobType(type);
         return ResponseEntity.ok(applications);     
     }
 
