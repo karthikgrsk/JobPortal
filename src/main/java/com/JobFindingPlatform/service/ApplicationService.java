@@ -1,5 +1,7 @@
 package com.JobFindingPlatform.service;
 
+import com.JobFindingPlatform.ENUM.ApplicationStatus;
+import com.JobFindingPlatform.ENUM.JobType;
 import com.JobFindingPlatform.entity.Application;
 import com.JobFindingPlatform.dto.ApplicationsDTO;
 import com.JobFindingPlatform.repository.ApplicationRepository;
@@ -13,11 +15,11 @@ import lombok.RequiredArgsConstructor;
 public class ApplicationService{
     private final ApplicationRepository applicationRepository;
 
-    public String apply(ApplicationsDTO applicationsDTO){
-        Application application = new Application();
+    public String apply(ApplicationsDTO dto){
+        Application app = new Application();
 
         app.setJobId(dto.getJobId());
-		app.setJobSeekerName(dto.getJobseekerName());
+		app.setJobSeekerName(dto.getJobSeekerName());
 		app.setJobSeekerEmail(dto.getJobSeekerEmail());
 		app.setJobTitle(dto.getJobTitle());
 		app.setJobType(dto.getJobType());
@@ -25,51 +27,42 @@ public class ApplicationService{
 		app.setStatus(dto.getStatus());
 		app.setAppliedAt(dto.getAppliedAt());
 		
-		appRepo.save(app);
+		applicationRepository.save(app);
         return "Applied Successfully";
     }
 
     public List<ApplicationsDTO> getApplicationsByJobSeekerEmail(String email) {
-        List<Application> applications = applicationRepository.findByJobSeekerEmail(email);
-        List<ApplicationsDTO> applicationsDTO = new ArrayList<>();
-        for (Application app : applications) {
-            applicationsDTO.add(mapToDTO(app)); 
-        }
-        return applicationsDTO;
+        return applicationRepository.findByJobSeekerEmail(email).stream()
+                .map(this::mapToDTO)
+                .toList();
     }
 
     public List<ApplicationsDTO> getRecruiterEmail(String email) {
-        List<Application> applications = applicationRepository.findByRecruiterEmail(email);
-        List<ApplicationsDTO> applicationsDTO = new ArrayList<>();
-        for (Application app : applications) {
-            applicationsDTO.add(mapToDTO(app)); 
-        }
-        return applicationsDTO;
+        return applicationRepository.findByRecruiterEmail(email).stream()
+                .map(this::mapToDTO)
+                .toList(); // Java 16+, else use .collect(Collectors.toList())
     }
+
     public List<ApplicationsDTO> getJobTitle(String title) {
-        List<Application> applications = applicationRepository.findByJobTitle(title);
-        List<ApplicationsDTO> applicationsDTO = new ArrayList<>();
-        for (Application app : applications) {
-            applicationsDTO.add(mapToDTO(app)); 
-        }
-        return applicationsDTO;
+        return applicationRepository.findByJobTitle(title).stream()
+                .map(this::mapToDTO)
+                .toList();
     }
 
     public List<ApplicationsDTO> getJobType(String type) {
-        List<Application> applications = applicationRepository.findByJobType(type);
-        List<ApplicationsDTO> applicationsDTO = new ArrayList<>();
-        for (Application app : applications) {
-            applicationsDTO.add(mapToDTO(app)); 
-        }
-        return applicationsDTO;
+        return applicationRepository.findByJobType(JobType.valueOf(type.toUpperCase())).stream()
+                .map(this::mapToDTO)
+                .toList();
     }
 
-    public void updateApplicationStatus(Long applicationId, String status) {
+    public void updateApplicationStatus(Long applicationId, ApplicationStatus status) {
         Application app = applicationRepository.findById(applicationId)
                 .orElseThrow(() -> new RuntimeException("Application not found with id: " + applicationId));
+
         app.setStatus(status);
         applicationRepository.save(app);
     }
+
 
 
     private ApplicationsDTO mapToDTO(Application app) {
@@ -77,7 +70,7 @@ public class ApplicationService{
 		ApplicationsDTO dto = new ApplicationsDTO();
 		dto.setJobId(app.getJobId());
 		dto.setJobSeekerEmail(app.getJobSeekerEmail());
-		dto.setJobseekerName(app.getJobSeekerName());
+		dto.setJobSeekerName(app.getJobSeekerName());
 		dto.setRecruiterEmail(app.getRecruiterEmail());
 		dto.setJobType(app.getJobType());
 		dto.setJobTitle(app.getJobTitle());

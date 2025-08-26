@@ -27,6 +27,7 @@ public class Application{
     private JobType jobType;
     @Column(unique = true)
     private String recruiterEmail;
+    @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
     private LocalDateTime appliedAt;
 
