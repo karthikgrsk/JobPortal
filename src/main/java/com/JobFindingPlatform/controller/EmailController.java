@@ -15,9 +15,12 @@ import org.springframework.beans.factory.annotation.Value;
 public class EmailController {
 
     private final EmailService emailService;
+
+
     @PostMapping("/send")
     public ResponseEntity<String> sendEmail(@RequestBody EmailRequestDTO emailRequest) {
+        System.out.println("Request received: " + emailRequest);
         emailService.sendEmail(emailRequest.getTo(), emailRequest.getSubject(), emailRequest.getBody());
         return ResponseEntity.ok("Email sent successfully");   
-}
+    }
 }
