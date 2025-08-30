@@ -7,8 +7,10 @@ import com.JobFindingPlatform.dto.ApplicationsDTO;
 import com.JobFindingPlatform.repository.ApplicationRepository;
 import org.springframework.stereotype.Service;
 import java.util.*;
-import lombok.RequiredArgsConstructor;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -34,25 +36,25 @@ public class ApplicationService{
     public List<ApplicationsDTO> getApplicationsByJobSeekerEmail(String email) {
         return applicationRepository.findByJobSeekerEmail(email).stream()
                 .map(this::mapToDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public List<ApplicationsDTO> getRecruiterEmail(String email) {
         return applicationRepository.findByRecruiterEmail(email).stream()
                 .map(this::mapToDTO)
-                .toList(); // Java 16+, else use .collect(Collectors.toList())
+                .collect(Collectors.toList()); // Java 16+, else use .collect(Collectors.toList())
     }
 
     public List<ApplicationsDTO> getJobTitle(String title) {
         return applicationRepository.findByJobTitle(title).stream()
                 .map(this::mapToDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public List<ApplicationsDTO> getJobType(String type) {
         return applicationRepository.findByJobType(JobType.valueOf(type.toUpperCase())).stream()
                 .map(this::mapToDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public void updateApplicationStatus(Long applicationId, ApplicationStatus status) {
