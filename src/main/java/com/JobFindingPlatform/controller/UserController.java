@@ -19,7 +19,7 @@ public class UserController {
     
     @GetMapping("/hello")
     public String hello(){
-        return "Hello World";
+        return "Welcome to Job Finding Platform";
     }
     
     
