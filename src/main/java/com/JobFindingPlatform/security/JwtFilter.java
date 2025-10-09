@@ -24,7 +24,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        if (path.startsWith("/auth/") || "OPTIONS".equalsIgnoreCase(request.getMethod())) {
+        if (authHeader != null && (authHeader.startsWith("/auth/") || "OPTIONS".equalsIgnoreCase(request.getMethod()))) {
             filterChain.doFilter(request, response);
             return;
         }
